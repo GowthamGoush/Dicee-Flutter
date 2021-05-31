@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(MaterialApp(
@@ -22,7 +23,14 @@ void main() {
   ));
 }
 
-class DiceApp extends StatelessWidget {
+class DiceApp extends StatefulWidget {
+  @override
+  _DiceAppState createState() => _DiceAppState();
+}
+
+class _DiceAppState extends State<DiceApp> {
+  int dice1Num = 1, dice2Num = 1;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,8 +41,13 @@ class DiceApp extends StatelessWidget {
                 flex: 1,
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
-                  child: Image(
-                    image: AssetImage('images/dice1.png'),
+                  child: TextButton(
+                    onPressed: () {
+                      randomizeDice();
+                    },
+                    child: Image(
+                      image: AssetImage('images/dice$dice1Num.png'),
+                    ),
                   ),
                 )),
             SizedBox(
@@ -49,13 +62,25 @@ class DiceApp extends StatelessWidget {
                 flex: 1,
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
-                  child: Image(
-                    image: AssetImage('images/dice1.png'),
+                  child: TextButton(
+                    onPressed: () {
+                      randomizeDice();
+                    },
+                    child: Image(
+                      image: AssetImage('images/dice$dice2Num.png'),
+                    ),
                   ),
                 ))
           ],
         ),
       ),
     );
+  }
+
+  void randomizeDice() {
+    setState(() {
+      dice1Num = Random().nextInt(6) + 1;
+      dice2Num = Random().nextInt(6) + 1;
+    });
   }
 }
